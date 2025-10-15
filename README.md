@@ -1,4 +1,4 @@
-# CURV: Coherent Uncertainty-Aware Reasoning in Vision-Language Models for X-Ray Report Generation
+# [NeurIPS 2025] CURV: Coherent Uncertainty-Aware Reasoning in Vision-Language Models for X-Ray Report Generation
 
 []([https://nips.cc/](https://neurips.cc/virtual/2025/poster/120063))
 [](https://opensource.org/licenses/Apache-2.0)
