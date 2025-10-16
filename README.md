@@ -5,6 +5,8 @@
 
 This repository contains the official implementation for the paper **"CURV: Coherent Uncertainty-Aware Reasoning in Vision-Language Models for X-Ray Report Generation"**, accepted at NeurIPS 2025.
 
+Model file at: https://modelscope.cn/models/wzaAAAAA/CURV
+
 ## 📝 Abstract
 
 Vision-language models (VLMs) have shown promise in generating radiology reports, but they often lack the ability to explicitly model diagnostic uncertainty and the reasoning process used to reach clinical impressions. This limits their clinical accuracy and trustworthiness. We introduce **CURV**, a novel framework that integrates **uncertainty awareness** and **explicit reasoning** capabilities. 
