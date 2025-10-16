@@ -1,0 +1,42 @@
+# CURV Data Processing Pipeline - Minimal Configuration
+# This is a minimal configuration file for quick setup
+
+# Basic data paths
+data:
+  input_file: "data/input.jsonl"
+  output_dir: "data/processed"
+  temp_dir: "data/temp"
+
+# Uncertainty extraction (basic setup)
+uncertainty:
+  extract_expressions: true
+  api_keys:
+    - "your_api_key_here"  # Replace with your actual API key
+  rate_limit_per_minute: 60
+  confidence_threshold: 0.8
+  checkpoint_interval: 100
+
+# Previous studies linking
+previous_studies:
+  max_lookback_days: 365
+  min_time_gap_hours: 1
+  include_reports: true
+  include_images: false
+
+# Visual grounding
+grounding:
+  image_size: [224, 224]
+  num_patches_side: 14
+  overlap_threshold: 0.05
+  bbox_format: "xyxy"
+
+# Output settings
+output:
+  save_intermediate: true
+  validate_output: true
+  compression: false
+
+# Logging
+logging:
+  level: "INFO"
+  file: "logs/pipeline.log"

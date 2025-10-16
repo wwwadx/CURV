@@ -1,0 +1,176 @@
+# CURV Data Processing Pipeline - Production Configuration
+# This configuration is optimized for production use with full features
+
+# Data configuration
+data:
+  input_file: "/path/to/large_dataset.jsonl"
+  output_dir: "/path/to/processed_output"
+  temp_dir: "/tmp/curv_processing"
+  backup_dir: "/path/to/backups"
+
+# Uncertainty extraction configuration
+uncertainty:
+  extract_expressions: true
+  
+  # Multiple API keys for load balancing
+  api_keys:
+    - "sk-api-key-1"
+    - "sk-api-key-2" 
+    - "sk-api-key-3"
+    - "sk-api-key-4"
+  
+  # Rate limiting
+  rate_limit_per_minute: 100
+  max_retries: 5
+  retry_delay: 2.0
+  exponential_backoff: true
+  
+  # Quality control
+  confidence_threshold: 0.85
+  min_phrase_length: 3
+  max_phrase_length: 50
+  
+  # Performance
+  batch_size: 32
+  checkpoint_interval: 500
+  checkpoint_dir: "/path/to/checkpoints"
+  
+  # Model configuration
+  model_name: "gpt-3.5-turbo"
+  temperature: 0.1
+  max_tokens: 1000
+
+# Previous studies configuration
+previous_studies:
+  max_lookback_days: 730  # 2 years
+  min_time_gap_hours: 6   # Minimum 6 hours between studies
+  include_reports: true
+  include_images: true
+  
+  # Performance optimization
+  batch_size: 1000
+  use_parallel_processing: true
+  num_workers: 8
+  
+  # Quality control
+  validate_dates: true
+  require_patient_id: true
+
+# Visual grounding configuration
+grounding:
+  # Image processing
+  image_size: [224, 224]
+  num_patches_side: 14
+  patch_size: 16
+  
+  # Bounding box processing
+  bbox_format: "xyxy"
+  normalize_coordinates: true
+  overlap_threshold: 0.1
+  min_bbox_area: 100
+  
+  # Model-specific configurations
+  models:
+    rad_dino:
+      image_size: [224, 224]
+      patch_size: 16
+      num_patches: 196
+    clip:
+      image_size: [224, 224]
+      patch_size: 32
+      num_patches: 49
+  
+  # Dataset-specific settings
+  datasets:
+    mimic_cxr:
+      default_image_size: [224, 224]
+      bbox_format: "xyxy"
+    reflacx:
+      default_image_size: [512, 512]
+      bbox_format: "xywh"
+
+# Output configuration
+output:
+  save_intermediate: true
+  validate_output: true
+  compression: true
+  compression_level: 6
+  
+  # File formats
+  formats:
+    - "jsonl"
+    - "parquet"  # For large datasets
+  
+  # Validation
+  schema_validation: true
+  data_quality_checks: true
+
+# Processing configuration
+processing:
+  # Performance
+  num_workers: 16
+  batch_size: 64
+  memory_limit_gb: 32
+  use_gpu: true
+  gpu_memory_fraction: 0.8
+  
+  # Error handling
+  max_errors_per_batch: 5
+  continue_on_error: true
+  error_log_file: "logs/errors.log"
+
+# Quality control
+quality_control:
+  # Thresholds
+  min_uncertainty_confidence: 0.8
+  max_processing_time_per_item: 30  # seconds
+  
+  # Validation
+  validate_json_structure: true
+  check_required_fields: true
+  validate_data_types: true
+  
+  # Sampling for manual review
+  sample_for_review: true
+  sample_rate: 0.01  # 1% of data
+
+# Logging configuration
+logging:
+  level: "INFO"
+  file: "logs/production_pipeline.log"
+  max_file_size_mb: 100
+  backup_count: 10
+  
+  # Structured logging
+  format: "json"
+  include_timestamp: true
+  include_process_id: true
+  
+  # Performance monitoring
+  log_performance_metrics: true
+  metrics_interval: 1000  # Log metrics every 1000 items
+
+# Monitoring and alerting
+monitoring:
+  enable_metrics: true
+  metrics_port: 8080
+  health_check_endpoint: "/health"
+  
+  # Alerts
+  alert_on_high_error_rate: true
+  error_rate_threshold: 0.05  # 5%
+  alert_email: "admin@example.com"
+
+# Resource management
+resources:
+  # Memory management
+  max_memory_usage_gb: 64
+  memory_cleanup_interval: 1000
+  
+  # Disk space
+  min_free_disk_space_gb: 10
+  cleanup_temp_files: true
+  
+  # Network
+  connection_timeout: 30
+  read_timeout: 60

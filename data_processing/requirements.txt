@@ -1,0 +1,36 @@
+# CURV Data Processing Requirements
+
+# Core dependencies
+numpy>=1.21.0
+tqdm>=4.62.0
+Pillow>=8.3.0
+matplotlib>=3.4.0
+
+# Data processing
+pandas>=1.3.0
+scipy>=1.7.0
+
+# Machine Learning
+scikit-learn>=1.0.0
+
+# API and LLM integration
+openai>=1.0.0
+requests>=2.25.0
+
+# Configuration and utilities
+PyYAML>=5.4.0
+click>=8.0.0
+
+# Optional visualization dependencies
+seaborn>=0.11.0
+plotly>=5.0.0
+
+# Development and testing (optional)
+pytest>=6.2.0
+pytest-cov>=2.12.0
+black>=21.0.0
+flake8>=3.9.0
+
+# Jupyter notebook support (optional)
+jupyter>=1.0.0
+ipywidgets>=7.6.0

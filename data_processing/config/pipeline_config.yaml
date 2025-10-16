@@ -1,0 +1,161 @@
+# CURV Data Processing Pipeline Configuration
+# This file contains all configuration options for the CURV data processing pipeline
+
+# Data configuration
+data:
+  # Input JSONL file containing the raw data
+  input_file: "data/input.jsonl"
+  
+  # Output directory for processed data
+  output_dir: "data/processed"
+  
+  # Temporary directory for intermediate files
+  temp_dir: "data/temp"
+  
+  # Test mode - process only a subset of data
+  test_mode: false
+  test_samples: 100
+
+# Uncertainty extraction configuration
+uncertainty:
+  # Whether to extract uncertainty expressions
+  extract_expressions: true
+  
+  # Confidence threshold for uncertainty detection
+  confidence_threshold: 0.8
+  
+  # API configuration for LLM-based extraction
+  api_keys:
+    - "your_api_key_1"
+    - "your_api_key_2"
+    # Add more API keys for better rate limiting
+  
+  # API endpoint configuration
+  api_base_url: "https://api.siliconflow.cn/v1"
+  model_name: "Qwen/Qwen2.5-7B-Instruct"
+  
+  # Rate limiting
+  requests_per_minute: 60
+  max_retries: 3
+  
+  # Checkpoint configuration
+  checkpoint_interval: 100
+  resume_from_checkpoint: true
+
+# Previous studies configuration
+previous_studies:
+  # Maximum number of days to look back for previous studies
+  max_lookback_days: 365
+  
+  # Whether to include previous study reports in the output
+  include_reports: true
+  
+  # Whether to include previous study images
+  include_images: false
+  
+  # Minimum time gap between studies (in days)
+  min_time_gap: 1
+
+# Visual grounding configuration
+grounding:
+  # Bounding box format: 'xyxy', 'xywh', 'cxcywh'
+  bbox_format: "xyxy"
+  
+  # Target image size for processing [width, height]
+  image_size: [224, 224]
+  
+  # Number of patches per side (for patch-based models)
+  num_patches_side: 14
+  
+  # Overlap threshold for patch-bbox matching
+  overlap_threshold: 0.05
+  
+  # Whether to normalize bounding box coordinates
+  normalize_coords: true
+  
+  # Whether to filter out small bounding boxes
+  filter_small_boxes: true
+  min_box_area: 100
+
+# Output configuration
+output:
+  # Whether to save intermediate results
+  save_intermediate: true
+  
+  # Whether to validate output data
+  validate_output: true
+  
+  # Output format options
+  include_metadata: true
+  compress_output: false
+  
+  # Quality control
+  max_output_size_mb: 1000
+  validate_json_format: true
+
+# Logging configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "logs/pipeline.log"
+  log_to_console: true
+  
+# Processing configuration
+processing:
+  # Number of parallel workers for multiprocessing
+  num_workers: 4
+  
+  # Batch size for processing
+  batch_size: 100
+  
+  # Memory management
+  max_memory_usage_gb: 8
+  clear_cache_interval: 1000
+
+# Quality control thresholds
+quality_control:
+  # Minimum required fields for each data item
+  required_fields:
+    - "study_id"
+    - "patient_id"
+  
+  # Optional fields that should be present
+  optional_fields:
+    - "findings"
+    - "impression"
+    - "image_path"
+  
+  # Data validation rules
+  max_text_length: 10000
+  min_text_length: 10
+  
+  # Uncertainty validation
+  max_uncertainty_phrases: 50
+  min_uncertainty_confidence: 0.5
+
+# Model-specific configurations
+models:
+  # Configuration for different model architectures
+  rad_dino:
+    patch_size: 16
+    image_size: [224, 224]
+    
+  clip:
+    image_size: [224, 224]
+    normalize_mean: [0.485, 0.456, 0.406]
+    normalize_std: [0.229, 0.224, 0.225]
+
+# Dataset-specific configurations
+datasets:
+  mimic_cxr:
+    # MIMIC-CXR specific settings
+    study_id_format: "s{study_id}"
+    patient_id_format: "p{patient_id}"
+    
+    # File paths
+    metadata_file: "mimic-cxr-2.0.0-metadata.csv"
+    chexpert_file: "mimic-cxr-2.0.0-chexpert.csv"
+    
+  reflacx:
+    # REFLACX annotation specific settings
+    annotation_format: "reflacx"
+    bbox_coordinate_system: "image_relative"
